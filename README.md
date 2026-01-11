@@ -10,6 +10,7 @@ This repository provides a performance-optimized version of Wan2GP that addresse
 - ✅ **50-70% less VRAM usage** via proper memory management
 - ✅ **3-5x faster batch processing** with optimized pipelines
 - ✅ **10-20x faster I/O** through intelligent caching
+- 🌟 **Full LTX-2 19B support** - Latest model with 20s videos & audio!
 
 ## 📊 Performance Analysis
 

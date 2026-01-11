@@ -57,10 +57,13 @@ Führe die Zellen nacheinander aus (oder **Runtime** → **Run all**):
 Das Notebook unterstützt alle Wan2GP Modelle:
 
 ### Text-to-Video:
+- **🌟 LTX-2 19B** (NEUESTES!) - Bis zu 20s Videos mit Audio-Soundtrack! ⚡
+  - Dev Version: Beste Qualität (40 steps)
+  - Distilled Version: Sehr schnell (8 steps)
 - **Wan 2.2** (Standard) - Hohe Qualität, gute Balance
 - **Wan 2.1** - Ältere Version
 - **Hunyuan Video 1.5** - Besonders gute Bewegungen
-- **LTX Video** - Schnell und effizient
+- **LTX Video** (alt) - Vorgänger von LTX-2
 
 ### Image Generation:
 - **Qwen Image** - Text-to-Image mit hoher Qualität
@@ -75,9 +78,10 @@ Das Notebook unterstützt alle Wan2GP Modelle:
 Modelle werden **automatisch** beim ersten Start heruntergeladen von Hugging Face.
 
 ### Download-Größen:
+- **LTX-2 19B**: ~12 GB (FP8: ~6 GB) ⭐ EMPFOHLEN
 - Wan 2.2: ~10 GB
 - Qwen Image: ~5 GB
-- LTX Video: ~8 GB
+- LTX Video (alt): ~8 GB
 - Hunyuan Video: ~15 GB
 
 **Mit Google Drive:** Modelle werden persistent gespeichert (einmalig Download)
@@ -291,6 +295,61 @@ result = client.predict(
 )
 ```
 
+## 🌟 LTX-2 - Das neueste Modell!
+
+**LTX-2 ist das modernste Modell in Wan2GP** und bietet einzigartige Features:
+
+### Was macht LTX-2 besonders?
+- 🎬 **Längste Videos**: Bis zu 20 Sekunden (241 frames @ 24 FPS)
+- 🎵 **Audio-Soundtrack**: Generiert automatisch passende Musik/Sounds!
+- ⚡ **Sehr schnell**: Distilled Version braucht nur 8 Steps
+- 🖼️ **Keyframe-Control**: Start & End Bilder für präzise Kontrolle
+- 🔄 **Sliding Window**: Noch längere Videos durch Fortsetzung
+
+### Verfügbare LTX-2 Versionen:
+
+**1. LTX-2 Dev 19B** (Beste Qualität)
+- 40 Steps für maximale Qualität
+- Mit Audio-Generation
+- ~12 GB Download (FP8: ~6 GB)
+
+**2. LTX-2 Distilled 19B** (Superschnell)
+- Nur 8 Steps!
+- 5x schneller als Dev Version
+- Gleiche Basis-Qualität
+
+### Empfohlene Settings für LTX-2:
+
+**T4 GPU (15GB):**
+```
+Modell: LTX-2 Distilled
+Auflösung: 512x384
+Frames: 121 (~5 Sekunden)
+Steps: 8
+Guidance: 4.0
+```
+
+**A100 GPU (40GB):**
+```
+Modell: LTX-2 Dev
+Auflösung: 768x512
+Frames: 241 (~10 Sekunden)
+Steps: 40
+Guidance: 4.0
+Audio: Aktiviert ✅
+```
+
+### Beispiel-Prompts für LTX-2:
+```
+A dramatic ocean sunset with crashing waves, seagulls, cinematic camera movement
+
+A jazz band performing in a smoky club, upbeat music, people dancing, 1950s
+
+A couple on a park bench, autumn leaves falling, romantic atmosphere, golden hour
+```
+
+---
+
 ## 💡 Tipps & Best Practices
 
 ### 🎯 Für beste Qualität:
@@ -300,10 +359,10 @@ result = client.predict(
 4. CFG Scale zwischen 7-9
 
 ### ⚡ Für schnellste Generation:
-1. LTX Video Modell nutzen
+1. **LTX-2 Distilled** Modell nutzen (nur 8 steps!) 🚀
 2. 512x512 Auflösung
 3. 16-24 Frames
-4. 20 Steps
+4. 8 Steps (distilled) oder 20 Steps (dev)
 5. FP16 statt FP32
 
 ### 💾 Für VRAM-Effizienz:
